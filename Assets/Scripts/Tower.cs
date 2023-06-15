@@ -5,51 +5,26 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     protected GameManager gameManager;
-    public List<int> attackBeats;
-    public string key;
+    public int track;
+    public int key;
     static int noteFallBeats = 32;
     float barHeight = .2f;
     static float noteSpawnHeight = 8f;
     private float noteSpeed;
     public bool active = false;
-
-    public Note notePrefab;
     void Start()
     {
         gameManager = GameManager.instance;
-        noteSpeed = (transform.lossyScale.y)*(noteSpawnHeight - barHeight) / (noteFallBeats * gameManager.secondsPerBeat); 
-        registerBeats();
-    }
-    void registerBeats()
-    {
-        //Register attacks
-        foreach(int beat in attackBeats)
-        {
-            if (active)
-            {
-                gameManager.actionMap[beat].Add(new GameManager.BeatAction(attack, key));
-            } else
-            {
-                gameManager.passiveMap[beat].Add(attack);
-            }
-            
-        }
-
-        //Register note spawns
-        foreach(int beat in attackBeats)
-        {
-            int spawnBeat = gameManager.mod(beat - noteFallBeats + gameManager.inputDelay, gameManager.totalBeats);
-            gameManager.passiveMap[spawnBeat].Add(spawnNote);
-        }
+        noteSpeed = (transform.lossyScale.y)*(noteSpawnHeight - barHeight) / (noteFallBeats * gameManager.secondsPerBeat);
+        registerTower();
     }
 
-    protected virtual void spawnNote()
+    void registerTower()
     {
-        Note note = Object.Instantiate(notePrefab, transform);
-        note.transform.localPosition = new Vector3(0, noteSpawnHeight, 0);
-        note.initialize(noteSpeed, noteFallBeats);
+        gameManager.registerMap[track, key] = attack;
     }
-    protected virtual void attack()
+
+    protected virtual void attack(GameManager.BeatAction beatAction)
     {
         Debug.Log("Calls general Tower attack");
     }

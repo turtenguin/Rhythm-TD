@@ -33,7 +33,7 @@ public class Zapper : Tower
 
         return closestEnemy;
     }
-    protected override void attack()
+    protected override void attack(GameManager.BeatAction beatAction)
     {
         if(target != null)
         {
