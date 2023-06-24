@@ -5,6 +5,7 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     protected GameManager gameManager;
+    protected RecordManager recordManager;
     public int track;
     public int key;
     static int noteFallBeats = 32;
@@ -15,16 +16,19 @@ public class Tower : MonoBehaviour
     void Start()
     {
         gameManager = GameManager.instance;
-        noteSpeed = (transform.lossyScale.y)*(noteSpawnHeight - barHeight) / (noteFallBeats * gameManager.secondsPerBeat);
+        recordManager = RecordManager.recordManagerInstance;
+        noteSpeed = (transform.lossyScale.y)*(noteSpawnHeight - barHeight) / (noteFallBeats * recordManager.secondsPerBeat);
         registerTower();
     }
 
     void registerTower()
     {
-        gameManager.registerMap[track, key] = attack;
+        //gameManager.registerMap[track, key] = attack;
+        recordManager.RegisterSelf(attack, track, key);
+        gameManager.RegisterTowerPosition(transform.position);
     }
 
-    protected virtual void attack(GameManager.BeatAction beatAction)
+    protected virtual void attack(BeatManager.BeatAction beatAction)
     {
         Debug.Log("Calls general Tower attack");
     }

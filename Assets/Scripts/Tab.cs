@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Tab : MonoBehaviour
 {
-
-    public int travelBeats = 16;
+    public float noteOffset = 5;
+    public int travelBeats = 8;
     public Transform[] rowTrans;
     public Note notePrefab;
-    public void spawnNote(GameManager.BeatAction beatAction)
+    public void SpawnNote(BeatManager.BeatAction beatAction)
     {
-        Object.Instantiate(notePrefab, rowTrans[beatAction.onKey]);
+        Note note = Object.Instantiate(notePrefab, rowTrans[beatAction.onKey]);
+        note.beatAction = beatAction;
     }
 }

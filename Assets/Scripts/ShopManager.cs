@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
-    public int coins = 0;
+    public int coins { get; private set; } = 0;
+    public int[] towerCosts { get; private set; }
     static public ShopManager instance;
-
+    private RecordManager recordManager;
     private GameManager gameManager;
 
-    // Start is called before the first frame update
     void Start()
     {
         instance = this;
         gameManager = GameManager.instance;
+        recordManager = RecordManager.recordManagerInstance;
     }
-
-    
 }

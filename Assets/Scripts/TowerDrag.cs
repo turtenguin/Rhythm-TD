@@ -40,7 +40,9 @@ public class TowerDrag : MonoBehaviour
 
         if (gameManager.canBuildHere(newX, newY))
         {
+            gameManager.RegisterTowerDestruction(originalPosition);
             transform.position = new Vector3((float)newX, transform.position.y, (float)newY);
+            gameManager.RegisterTowerPosition(transform.position);
         } else
         {
             transform.position = originalPosition;
