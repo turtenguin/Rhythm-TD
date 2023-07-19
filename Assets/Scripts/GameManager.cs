@@ -5,8 +5,13 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
+    public float transitionToShopTime = 1f;
+
+    public Tower[] towerPrefabs;
+    
     public Plane floorPlane;
     public Shadow shadow;
+    public UpgradeMenu upgradeMenu;
 
     public List<Enemy> enemies;
 

@@ -10,9 +10,9 @@ public class BeatManager : MonoBehaviour
 
     //Wrapper variables for setting initial values in the editor
     [SerializeField]
-    private float SecondsPerBeat;
+    private float SecondsPerBeat = .125f;
     [SerializeField]
-    private int TotalBeats, BeatBuffer = 1, InputDelay = 1, NumTracks, NumTrackVersions;
+    private int TotalBeats = 64, BeatBuffer = 1, InputDelay = 1, NumTracks = 5, NumTrackVersions = 4;
     [SerializeField]
     int[] InitialTrackVersions;
 
@@ -28,7 +28,7 @@ public class BeatManager : MonoBehaviour
     public int currentBeat { get; private set; } = 0;
 
     //One audio source for each track in order, set in inspector
-    private AudioSource[] audioSources;
+    protected AudioSource[] audioSources;
     //The keys used as input in order
     public string[] keys;
 
@@ -49,6 +49,13 @@ public class BeatManager : MonoBehaviour
 
     //Number of beats left unti a key can be input again for each key
     private int[] keyDrops;
+
+    //Array holding the max volume and current unaltered volume for each track
+    public float[] volumes;
+    protected float[] currentVolumes;
+
+    //List of active actions that need to be added once their active range has passed
+    private List<BeatAction> beatActionsToAdd;
 
     //Struct holding actions and information about them
     public struct BeatAction
@@ -114,6 +121,7 @@ public class BeatManager : MonoBehaviour
         currentBeat = 0;
         currentTrackVersions = new int[numTracks];
         audioSources = new AudioSource[numTracks];
+        currentVolumes = new float[numTracks];
         for(int i = 0; i < numTracks; i++)
         {
             currentTrackVersions[i] = InitialTrackVersions[i];
@@ -122,6 +130,11 @@ public class BeatManager : MonoBehaviour
             if(InitialTrackVersions[i] < 0)
             {
                 audioSources[i].volume = 0;
+                currentVolumes[i] = 0;
+            }
+            else
+            {
+                currentVolumes[i] = volumes[i];
             }
         }
         keyDrops = new int[numKeys];
@@ -132,6 +145,8 @@ public class BeatManager : MonoBehaviour
             actionMap[i] = new List<BeatAction>();
             passiveMap[i] = new List<BeatAction>();
         }
+
+        beatActionsToAdd = new List<BeatAction>();
 
         initialized = true;
 
@@ -223,7 +238,7 @@ public class BeatManager : MonoBehaviour
         isRunning = true;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (isRunning)
         {
@@ -278,6 +293,16 @@ public class BeatManager : MonoBehaviour
             passiveMap[currentBeat].Remove(beatAction);
         }
 
+        //Remove active actions from the beat who just became out of range
+        int clearBeat = Mod(currentBeat - beatBuffer - inputDelay, totalBeats);
+        for(int i = actionMap[clearBeat].Count - 1; i >= 0 ; i--)
+        {
+            if (actionMap[clearBeat][i].onlyOnce)
+            {
+                actionMap[clearBeat].RemoveAt(i);
+            }
+        }
+
         //Drop hit keys
         for (int i = 0; i < numKeys; i++)
         {
@@ -312,7 +337,10 @@ public class BeatManager : MonoBehaviour
                             //Set the cooldown for that key
                             keyDrops[beatAction.onKey] = beatBuffer - inputDelay;
                             //If the action is only once add it to the list
-                            toRemove.Add(beatAction);
+                            if (beatAction.onlyOnce)
+                            {
+                                toRemove.Add(beatAction);
+                            }
                         }
                     }
                 }
@@ -326,7 +354,21 @@ public class BeatManager : MonoBehaviour
 
     public void AddActiveAction(BeatAction beatAction)
     {
-        actionMap[beatAction.onBeat].Add(beatAction);
+        if(beatAction.onBeat >= Mod(currentBeat - beatBuffer - inputDelay - 1, totalBeats))
+        {
+            beatActionsToAdd.Add(beatAction);
+            Invoke("ActuallyAddActiveAction", beatBuffer * 4 * secondsPerBeat);
+        }
+        else
+        {
+            actionMap[beatAction.onBeat].Add(beatAction);
+        }
+    }
+
+    private void ActuallyAddActiveAction()
+    {
+        actionMap[beatActionsToAdd[0].onBeat].Add(beatActionsToAdd[0]);
+        beatActionsToAdd.RemoveAt(0);
     }
 
     public void AddPassiveAction(BeatAction beatAction)
@@ -368,12 +410,14 @@ public class BeatManager : MonoBehaviour
         if (version < 0)
         {
             audioSources[track].volume = 0;
+            currentVolumes[track] = 0;
         }
         else 
         {
             if (currentTrackVersions[track] < 0)
             {
-                audioSources[track].volume = 1;
+                audioSources[track].volume = volumes[track];
+                currentVolumes[track] = volumes[track];
             }
             audioSources[track].clip = tracks[track, version];
 
