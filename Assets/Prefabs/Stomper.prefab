@@ -95,23 +95,26 @@ MonoBehaviour:
   track: 0
   key: 0
   towerType: 0
-  level: 0
+  range: 1
   flashMat: {fileID: 2100000, guid: 8bb006c4b1517e1478fd44109fbc983c, type: 2}
   flashTime: 0.1
   model: {fileID: 9080525455622367282}
   upgradeText:
-  - dgs
-  - hfadh
-  - 325
+  - +1 RNG
+  - +1 DMG
+  - +1 RNG
   modelPrefabs:
   - {fileID: 1587895449718980226, guid: 5fbd153c6fc17cb498779617d7d321ca, type: 3}
   - {fileID: 5585543068034478326, guid: f55e6bb8288be77498196c22770fd31f, type: 3}
   - {fileID: 2771733867056661607, guid: 8b2934855ccc9354791c1070ef781c4b, type: 3}
+  targeting: 0
+  damage: 1
   openDist: 0.5
   rotSpeed: 10
   openSpeed: 1
   closeSpeed: 50
   particles: {fileID: 6022559388257690165}
+  ring: {fileID: 8925238713650121893}
 --- !u!135 &8702498990304813631
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -248,7 +251,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -5044,7 +5047,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 1.25
+  m_Radius: 1.5
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}

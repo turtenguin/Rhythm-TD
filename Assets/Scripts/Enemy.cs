@@ -6,23 +6,63 @@ public class Enemy : MonoBehaviour
 {
 
     GameManager gameManager;
+    EnemySpawner enemySpawner;
+    ShopManager shopManager;
+
+    //+x, -x, +z, -z
     private int dir;
     private int trackOn = 0;
-    public float speed = 1;
+    public float speed { get; private set; }
     private Vector3 moveVec;
+    public int strength { get; private set; }
+    public float health { get; private set;}
+    public ParticleSystem particles;
+    public ParticleSystem explodeParticles;
+    public float explodeSpeed = 5;
+    public GameObject model;
+    private bool alive = true;
+
+    //Setter values which do not change
+    [SerializeField] private float startSpeed;
+    [SerializeField] private int StartStrength;
+    [SerializeField] private float StartHealth;
+    public int type;
+
     void Start()
     {
         gameManager = GameManager.instance;
+        enemySpawner = gameManager.enemySpawner;
+        shopManager = ShopManager.instance;
+
+        ResetEnemy();
+    }
+
+    public void ResetEnemy()
+    {
+        alive = true;
+        trackOn = 0;
+
+        model.SetActive(true);
+        particles.gameObject.SetActive(false);
+        explodeParticles.gameObject.SetActive(false);
+
+        speed = startSpeed;
+        health = StartHealth;
+        strength = StartStrength;
+
         gameManager.enemies.Add(this);
         dir = gameManager.trackDirs[0];
         moveVec = new Vector3(speed * Time.fixedDeltaTime, 0, 0);
+        transform.position = gameManager.trackStart;
     }
 
     void FixedUpdate()
     {
-        transform.Translate(moveVec);
-        updateMove();
-        
+        if (alive)
+        {
+            transform.Translate(moveVec);
+            updateMove();
+        }
     }
 
     void updateMove()
@@ -70,14 +110,79 @@ public class Enemy : MonoBehaviour
                 transform.position.Set(gameManager.trackEnds[trackOn - 1], transform.position.y, transform.position.z);
                 break;
             default:
-                onReachEnd();
+                ReachEnd();
                 break;
         }
     }
 
-    void onReachEnd()
+    public bool IsAheadOf(Enemy enemy)
     {
+        switch (dir)
+        {
+            case 0:
+                return transform.position.x > enemy.transform.position.x;
+            case 1:
+                return transform.position.x < enemy.transform.position.x;
+            case 2:
+                return transform.position.z > enemy.transform.position.z;
+            case 3:
+                return transform.position.z < enemy.transform.position.z;
+            default:
+                Debug.Log("Invalid Directino");
+                return true;
+        }
+    }
+
+    public bool Damage(float dmg, Vector3 towerPos)
+    {
+        if (alive)
+        {
+            health -= dmg;
+            if(health <= 0)
+            {
+                Die(towerPos);
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private void ReachEnd()
+    {
+        alive = false;
+        model.SetActive(false);
+        explodeParticles.gameObject.SetActive(true);
+
+        explodeParticles.Play();
         gameManager.enemies.Remove(this);
-        Destroy(this.gameObject);
+        gameManager.Damage(strength);
+        Invoke("Destroy", 2);
+    }
+
+    private void Die(Vector3 towerPos)
+    {
+        alive = false;
+        model.SetActive(false);
+        particles.gameObject.SetActive(true);
+
+        Vector3 explodeDir = Vector3.Normalize(transform.position - towerPos) * explodeSpeed;
+        ParticleSystem.VelocityOverLifetimeModule vModule = particles.velocityOverLifetime;
+        vModule.x = new ParticleSystem.MinMaxCurve(explodeDir.x, explodeDir.x);
+        vModule.z = new ParticleSystem.MinMaxCurve(explodeDir.z, explodeDir.z);
+
+        particles.Play();
+
+        gameManager.enemies.Remove(this);
+
+        shopManager.CollectBounty(type);
+
+        Invoke("Destroy", 2);
+    }
+
+    private void Destroy()
+    {
+        enemySpawner.AddToPool(this);
+        this.gameObject.SetActive(false);
     }
 }

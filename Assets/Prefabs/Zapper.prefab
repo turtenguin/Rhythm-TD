@@ -106,18 +106,20 @@ MonoBehaviour:
   track: 0
   key: 0
   towerType: 0
-  level: 0
   flashMat: {fileID: 2100000, guid: f5e73b3297ffeb6449a49e96db7f7cad, type: 2}
   flashTime: 0.1
   model: {fileID: 8886149661470391377}
   upgradeText:
-  - dtyj
-  - dtyj
-  - dtyj
+  - +2 RNG
+  - +4 RNG
+  - +1 DMG
   modelPrefabs:
   - {fileID: 8875207975265597681, guid: 619139d15696d014a88c3f2f5d8888d0, type: 3}
   - {fileID: 4609342271152013037, guid: 1239835093269bb46bd794c2f34847f4, type: 3}
   - {fileID: 48845609405729331, guid: c2733eb173801254fae46ad5e5a6fad5, type: 3}
+  targeting: 0
+  damage: 1
+  range: 2
   lightning: {fileID: 3604257316946086855}
 --- !u!1001 &3604257316934970277
 PrefabInstance:
@@ -204,7 +206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11427938, guid: a9892f6a83fd8d4468ce0c8a3d09d3cd, type: 3}
       propertyPath: Generations
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 12010332, guid: a9892f6a83fd8d4468ce0c8a3d09d3cd, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.b

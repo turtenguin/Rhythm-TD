@@ -195,10 +195,6 @@ public class RecordManager : BeatManager
                 //And for each beat in that list
                 foreach (int beat in beatList)
                 {
-                    if(beat == 62 || beat == 63)
-                    {
-                        Debug.Log("Place");
-                    }
                     //Create a Record BeatAction
                     BeatAction newAction = new BeatAction(RecordNote, k, beat, armedTrack, true);
                     //And add it as an active action
@@ -244,8 +240,6 @@ public class RecordManager : BeatManager
                 break;
             }
         }
-
-        Debug.Log(beatAction.onTrack.ToString() + "/" + beatAction.onKey.ToString() + "/" + beatAction.onBeat.ToString());
     }
 
     private void finishRecord()

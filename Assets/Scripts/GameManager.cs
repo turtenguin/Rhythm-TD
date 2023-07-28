@@ -2,18 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public float transitionToShopTime = 1f;
+    public int health = 100;
+    public Text healthText;
 
+    public float transitionToShopTime = 1f;
+    public float refreshTargetRate = .2f;
     public Tower[] towerPrefabs;
     
     public Plane floorPlane;
     public Shadow shadow;
     public UpgradeMenu upgradeMenu;
 
-    public List<Enemy> enemies;
+    public EnemySpawner enemySpawner;
+    public List<Enemy> enemies { get; private set; }
 
     static public GameManager instance;
 
@@ -27,6 +32,7 @@ public class GameManager : MonoBehaviour
     public int[] trackDirs;
     //each element contains the endpoint of given track segment
     public int[] trackEnds;
+    public Vector3 trackStart;
 
     //Array storing what is present in each space for fast calculations of building there
     public enum Contents
@@ -45,9 +51,40 @@ public class GameManager : MonoBehaviour
 
         floorPlane = new Plane(Vector3.up, -.2f);
 
-        enemies = new List<Enemy>();
+        enemySpawner = GetComponent<EnemySpawner>();
 
         loadMapData();
+
+        healthText.text = health.ToString();
+    }
+
+    private void Start()
+    {
+        enemies = enemySpawner.enemies;
+        //TEMPORARY
+        LinkedList<EnemySpawner.enemySpawn> spawnList = new LinkedList<EnemySpawner.enemySpawn>();
+        for(float i = 40; i < 500; i = i + 1)
+        {
+            spawnList.AddLast(new EnemySpawner.enemySpawn(0, i));
+        }
+        enemySpawner.LoadEnemyData(spawnList);
+        enemySpawner.RunSpawner();
+    }
+
+    public bool Damage(int dmg)
+    {
+        health -= dmg;
+
+        if(health > 0)
+        {
+            healthText.text = health.ToString();
+            return false;
+        }
+        else
+        {
+            healthText.text = "0";
+            return true;
+        }
     }
 
     public bool canBuildHere(int x, int z)

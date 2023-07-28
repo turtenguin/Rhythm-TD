@@ -13,6 +13,7 @@ public class Stomper : Tower
     private Transform topTransform;
     private bool closing = false;
     [SerializeField] private ParticleSystem particles;
+    [SerializeField] private Transform ring;
 
     protected override void Start()
     {
@@ -58,7 +59,7 @@ public class Stomper : Tower
         }
     }
 
-    public override void Upgrade()
+    public override float Upgrade()
     {
         base.Upgrade();
         
@@ -66,6 +67,42 @@ public class Stomper : Tower
         {
             topTransform = stompData.top;
         }
+
+        switch (level)
+        {
+            case 1:
+                ring.localScale = 1.25f * Vector3.one;
+                particles.transform.localScale = 1.25f * Vector3.one;
+                range = 1.42f;
+                return 1.42f;
+            case 2:
+                damage = 2;
+                range = 1.60f;
+                return 1.60f;
+            case 3:
+                ring.localScale = 1.5f * Vector3.one;
+                particles.transform.localScale = 1.5f * Vector3.one;
+                range = 2.67f;
+                return 2.67f;
+        }
+
+        return 0;
+    }
+
+    public override float NextUpgradeRange()
+    {
+        base.NextUpgradeRange();
+
+        switch (level)
+        {
+            case 0:
+                return 1.42f;
+            case 1:
+                return 1.60f;
+            case 2: 
+                return 2.67f;
+        }
+        return 0;
     }
 
     private void OnTriggerExit(Collider other)
@@ -89,7 +126,10 @@ public class Stomper : Tower
             }
             else
             {
-                //Debug.Log("Hit");
+                if(!inRange[i].Damage(damage, transform.position))
+                {
+                    inRange.RemoveAt(i);
+                }
             }
         }
 

@@ -10,7 +10,8 @@ public class Tower : MonoBehaviour
     [HideInInspector] public int track;
     [HideInInspector] public int key;
     public int towerType;
-    public int level;
+    public int level { get; private set; }
+    public float range = 5;
     public Action<BeatManager.BeatAction> attackAction { get; private set; }
     private Material normMat;
     public Material flashMat;
@@ -27,6 +28,7 @@ public class Tower : MonoBehaviour
     
     //0 = First, 1 = Last, 2 = Strong, 3 = Close
     public int targeting = 0;
+    public float damage = 1;
     protected virtual void Start()
     {
         gameManager = GameManager.instance;
@@ -79,7 +81,7 @@ public class Tower : MonoBehaviour
         Invoke("UnFlash", flashTime);
     }
 
-    public virtual void Upgrade()
+    public virtual float Upgrade()
     {
         level++;
         ModelData newModel = UnityEngine.Object.Instantiate(modelPrefabs[level - 1], transform);
@@ -89,5 +91,12 @@ public class Tower : MonoBehaviour
         model = newModel;
         flashParts = model.flashParts;
         transform.localScale = Vector3.one * (.7f + .1f * level);
+
+        return 0;
+    }
+
+    public virtual float NextUpgradeRange()
+    {
+        return 0;
     }
 }

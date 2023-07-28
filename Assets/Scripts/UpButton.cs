@@ -7,6 +7,13 @@ public class UpButton : UpgradeButton
 {
     public Text costText;
     public Text effectText;
+    public Scaler circleShadow;
+
+    protected override void Start()
+    {
+        base.Start();
+        checkForHighlight = true;
+    }
 
     public override void InitButton()
     {
@@ -22,6 +29,8 @@ public class UpButton : UpgradeButton
         cost = shopManager.upgradeCosts[towerType].upgradeCosts[tower.level];
         costText.text = cost.ToString();
         effectText.text = tower.upgradeText[tower.level];
+
+        UpdateCoins(shopManager.coins);
     }
 
     protected override void ActivateButton()
@@ -31,8 +40,27 @@ public class UpButton : UpgradeButton
         if (shopManager.MakePurchase(cost))
         {
             tower.Upgrade();
+            circleShadow.StartScale(tower.range);
         }
 
         InitButton();
+    }
+
+    protected override void OnPress()
+    {
+        base.OnPress();
+
+        float newRange = tower.NextUpgradeRange();
+        if(newRange != 0)
+        {
+            circleShadow.StartScale(newRange);
+        }
+    }
+
+    protected override void OnUnpress()
+    {
+        base.OnUnpress();
+
+        circleShadow.StartScale(tower.range);
     }
 }

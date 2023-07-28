@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ShopManager : MonoBehaviour
 {
 
-    public int coins { get; private set; } = 5000;
+    public int coins;
     public int numTowerTypes;
     public int numTowersPerType;
     public int numUpgrades { get; private set; }
@@ -30,6 +30,8 @@ public class ShopManager : MonoBehaviour
     public costList[] upgradeCosts;
     public costList[] trackUpgradeCosts;
     public int moveCost;
+
+    public int[] bounties;
 
     void Awake()
     {
@@ -119,6 +121,11 @@ public class ShopManager : MonoBehaviour
     {
         coins += earnedCoins;
         UpdateShop();
+    }
+
+    public void CollectBounty(int enemyType)
+    {
+        EarnCoins(bounties[enemyType]);
     }
 
     private void UpdateShop()

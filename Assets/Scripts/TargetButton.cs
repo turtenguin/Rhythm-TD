@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TargetButton : UpgradeButton
 {
-    private static readonly string[] modes = { "FIRST", "LAST", "STRONG", "CLOSE" };
+    private static readonly string[] modes = { "FIRST", "LAST", "STRONG", "CLOSE", "FAST" };
     public Text modeText;
 
     public override void InitButton()
@@ -19,7 +19,7 @@ public class TargetButton : UpgradeButton
     {
         base.ActivateButton();
 
-        tower.targeting = (tower.targeting + 1) % 4;
+        tower.targeting = (tower.targeting + 1) % 5;
         InitButton();
     }
 }

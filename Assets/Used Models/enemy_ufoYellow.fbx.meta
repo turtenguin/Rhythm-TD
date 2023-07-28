@@ -3,7 +3,27 @@ guid: cf586e19a83ea674e8f4ad533a863163
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dirt
+    second: {fileID: 2100000, guid: e2ca1ba3a185ddf4f9c1195f496913fe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: glass
+    second: {fileID: 2100000, guid: a7fad61ea3c1c024b860e8500dbfb632, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: snowRoad
+    second: {fileID: 2100000, guid: 05b2ee875c5d6e249a03ff75bb2e57fc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: stoneDark
+    second: {fileID: 2100000, guid: 9fee97763190dec47929c25539d9afb3, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

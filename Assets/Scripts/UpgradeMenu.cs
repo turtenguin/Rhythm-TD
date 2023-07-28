@@ -11,7 +11,9 @@ public class UpgradeMenu : MonoBehaviour
     private RecordManager recordManager;
     public UpgradeButton recordButton, upgradeButton, trackUpButton, moveButton, targetButton;
 
-    public Tower tower;
+    public Scaler circleShadow;
+
+    public Tower tower { get; private set; }
 
     private Canvas parentCanvas;
 
@@ -26,6 +28,8 @@ public class UpgradeMenu : MonoBehaviour
         recordManager = RecordManager.recordManagerInstance;
 
         parentCanvas = GetComponentInParent<Canvas>();
+
+        circleShadow.transform.localScale = Vector3.zero;
     }
 
     private void Update()
@@ -44,6 +48,9 @@ public class UpgradeMenu : MonoBehaviour
     private void Open()
     {
         animator.SetTrigger("Open");
+        circleShadow.transform.position = tower.transform.position + new Vector3(0, .1f, 0);
+        circleShadow.transform.localScale = Vector3.zero;
+        circleShadow.StartScale(tower.range);
     }
     private void OnOpened()
     {
@@ -54,6 +61,7 @@ public class UpgradeMenu : MonoBehaviour
     {
         animator.SetTrigger("Close");
         canvasGroup.interactable = false;
+        circleShadow.StartScale(0);
     }
 
     public void EndInteraction()

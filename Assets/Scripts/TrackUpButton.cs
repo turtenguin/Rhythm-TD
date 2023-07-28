@@ -11,6 +11,7 @@ public class TrackUpButton : UpgradeButton
     private RecordManager recordManager;
     private int track;
     private int trackVersion;
+    public UpgradeButton recordButton;
 
     protected override void Start()
     {
@@ -41,6 +42,8 @@ public class TrackUpButton : UpgradeButton
         costText.text = cost.ToString();
         totalBeatIncrease.text = "+" + (recordManager.hitsAvailableOnVersion(towerType, trackVersion + 1) - recordManager.hitsAvailableOnVersion(towerType, trackVersion)).ToString();
         beatIncrease.text = "+" + (recordManager.hitsAvailableOnVersion(towerType, trackVersion + 1, tower.key) - recordManager.hitsAvailableOnVersion(towerType, trackVersion, tower.key)).ToString();
+
+        UpdateCoins(shopManager.coins);
     }
 
 
@@ -52,5 +55,6 @@ public class TrackUpButton : UpgradeButton
         }
 
         InitButton();
+        recordButton.InitButton();
     }
 }

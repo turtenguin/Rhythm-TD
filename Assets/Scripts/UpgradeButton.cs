@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UpgradeButton : MonoBehaviour
 {
-    private Animator animator;
+    protected Animator animator;
     private bool justPressed;
     public UpgradeMenu upgradeMenu;
     protected Button button;
@@ -15,6 +15,8 @@ public class UpgradeButton : MonoBehaviour
     protected int towerType;
     protected bool justClicked = true;
     protected bool closeOnPress = false;
+    protected bool checkForHighlight = false;
+    private bool highlighted = false;
 
     protected virtual void Start()
     {
@@ -25,7 +27,7 @@ public class UpgradeButton : MonoBehaviour
         shopManager = ShopManager.instance;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (justPressed)
         {
@@ -38,11 +40,38 @@ public class UpgradeButton : MonoBehaviour
                 }
             }
         }
+
+        if (checkForHighlight)
+        {
+            AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+            if (!highlighted && state.IsName("Highlighted"))
+            {
+                highlighted = true;
+                OnPress();
+            }
+            else if (highlighted && !state.IsName("Highlighted") && !state.IsName("Pressed") && !state.IsName("Disabled"))
+            {
+                highlighted = false;
+                OnUnpress();
+            }
+        }
+        
+    }
+
+    protected virtual void OnPress()
+    {
+
+    }
+
+    protected virtual void OnUnpress()
+    {
+
     }
 
     private void OnPressed()
     {
         justPressed = true;
+        highlighted = false;
     }
 
     public virtual void InitButton() {
