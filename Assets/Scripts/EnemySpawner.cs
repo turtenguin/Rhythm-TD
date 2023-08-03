@@ -16,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
         public float spawnTime { get; private set; }
     }
 
-    private LinkedList<enemySpawn> spawnList;
+    private Queue<enemySpawn> spawnList;
     public Enemy[] enemyPrefabs;
     public float sortTime = .2f;
     public List<Enemy> enemies { get; private set; }
@@ -37,19 +37,20 @@ public class EnemySpawner : MonoBehaviour
         Invoke("RoutineSortEnemies", sortTime);
     }
 
-    public void LoadEnemyData(LinkedList<enemySpawn> newSpawnList)
+    public void LoadEnemyData(Queue<enemySpawn> newSpawnList)
     {
         spawnList = newSpawnList;
     }
 
     public void RunSpawner()
     {
-        Invoke("Spawn", spawnList.First.Value.spawnTime);
+        Invoke("Spawn", spawnList.Peek().spawnTime);
     }
 
     public void Spawn()
     {
-        int type = spawnList.First.Value.enemyType;
+        enemySpawn spawn = spawnList.Dequeue();
+        int type = spawn.enemyType;
 
         if(pooledEnemies[type].Count == 0)
         {
@@ -62,12 +63,11 @@ public class EnemySpawner : MonoBehaviour
             newEnemy.ResetEnemy();
         }
 
-        float thisTime = spawnList.First.Value.spawnTime;
-        spawnList.RemoveFirst();
+        float thisTime = spawn.spawnTime;
 
         if(spawnList.Count > 0)
         {
-            Invoke("Spawn", spawnList.First.Value.spawnTime - thisTime);
+            Invoke("Spawn", spawnList.Peek().spawnTime - thisTime);
         }
     }
 

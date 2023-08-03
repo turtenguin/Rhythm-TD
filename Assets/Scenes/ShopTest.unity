@@ -2415,7 +2415,6 @@ GameObject:
   m_Component:
   - component: {fileID: 942989899}
   - component: {fileID: 942989898}
-  - component: {fileID: 942989900}
   m_Layer: 0
   m_Name: RecordManager
   m_TagString: Untagged
@@ -2476,19 +2475,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &942989900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 942989897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8575611213664304a8f189a4cf451c50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dataFileName: blignal2.txt
 --- !u!1001 &943488347
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4895,6 +4881,7 @@ GameObject:
   - component: {fileID: 1644911551}
   - component: {fileID: 1644911550}
   - component: {fileID: 1644911552}
+  - component: {fileID: 1644911553}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4928,7 +4915,7 @@ MonoBehaviour:
   enemySpawner: {fileID: 0}
   trackDirs: 000000000300000000000000020000000000000004000000
   trackEnds: fffffffffdffffff010000000300000002000000
-  trackStart: {x: -2, y: 0.25, z: 3}
+  UFOHeight: 0.25
   buildMapOffset: 0
 --- !u!4 &1644911551
 Transform:
@@ -4970,6 +4957,19 @@ MonoBehaviour:
   - {fileID: 6530716851478743194, guid: a3455aeab9e69b64d95f953b78e31235, type: 3}
   - {fileID: 6530716851478743194, guid: abcd3a22cab1b9f4da4e535c4dcc5650, type: 3}
   sortTime: 0.2
+--- !u!114 &1644911553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644911549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8575611213664304a8f189a4cf451c50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataFileName: blignal2.txt
 --- !u!1 &1654161411
 GameObject:
   m_ObjectHideFlags: 0

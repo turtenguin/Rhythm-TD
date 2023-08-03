@@ -32,14 +32,14 @@ public class GameManager : MonoBehaviour
     public int[] trackDirs;
     //each element contains the endpoint of given track segment
     public int[] trackEnds;
-    public Vector3 trackStart;
+    public Vector3 trackStart { get; private set; }
+    public float UFOHeight;
 
     //Array storing what is present in each space for fast calculations of building there
     public enum Contents
     {
         ground,
         air,
-        path,
         tower,
     }
     public Contents[,] buildMap;
@@ -53,22 +53,12 @@ public class GameManager : MonoBehaviour
 
         enemySpawner = GetComponent<EnemySpawner>();
 
-        loadMapData();
-
         healthText.text = health.ToString();
     }
 
     private void Start()
     {
         enemies = enemySpawner.enemies;
-        //TEMPORARY
-        LinkedList<EnemySpawner.enemySpawn> spawnList = new LinkedList<EnemySpawner.enemySpawn>();
-        for(float i = 40; i < 500; i = i + 1)
-        {
-            spawnList.AddLast(new EnemySpawner.enemySpawn(0, i));
-        }
-        enemySpawner.LoadEnemyData(spawnList);
-        enemySpawner.RunSpawner();
     }
 
     public bool Damage(int dmg)
@@ -111,99 +101,11 @@ public class GameManager : MonoBehaviour
         buildMap[x + buildMapOffset, z + buildMapOffset] = Contents.ground;
     }
 
-    private void loadMapData()
+    public void LoadMapData(Contents[,] map, int xStart, int zStart)
     {
-        buildMapOffset = 4;
-        buildMap = new Contents[9,9];
+        buildMap = map;
+        buildMapOffset = map.GetLength(0) / 2;
 
-        buildMap[0, 0] = Contents.air;
-        buildMap[0, 1] = Contents.air;
-        buildMap[0, 2] = Contents.air;
-        buildMap[0, 3] = Contents.air;
-        buildMap[0, 4] = Contents.air;
-        buildMap[0, 5] = Contents.air;
-        buildMap[0, 6] = Contents.air;
-        buildMap[0, 7] = Contents.air;
-        buildMap[0, 8] = Contents.air;
-
-        buildMap[1, 0] = Contents.air;
-        buildMap[1, 1] = Contents.air;
-        buildMap[1, 2] = Contents.air;
-        buildMap[1, 3] = Contents.air;
-        buildMap[1, 4] = Contents.air;
-        buildMap[1, 5] = Contents.air;
-        buildMap[1, 6] = Contents.air;
-        buildMap[1, 7] = Contents.air;
-        buildMap[1, 8] = Contents.air;
-
-        buildMap[2, 0] =  Contents.ground;
-        buildMap[2, 1] =  Contents.ground;
-        buildMap[2, 2] =  Contents.ground;
-        buildMap[2, 3] =  Contents.ground;
-        buildMap[2, 4] =  Contents.ground;
-        buildMap[2, 5] =  Contents.ground;
-        buildMap[2, 6] =  Contents.ground;
-        buildMap[2, 7] = Contents.air;
-        buildMap[2, 8] =  Contents.ground;
-
-        buildMap[3, 0] =  Contents.ground;
-        buildMap[3, 1] = Contents.air;
-        buildMap[3, 2] = Contents.air;
-        buildMap[3, 3] = Contents.air;
-        buildMap[3, 4] = Contents.air;
-        buildMap[3, 5] = Contents.air;
-        buildMap[3, 6] = Contents.air;
-        buildMap[3, 7] = Contents.air;
-        buildMap[3, 8] =  Contents.ground;
-
-        buildMap[4, 0] =  Contents.ground;
-        buildMap[4, 1] = Contents.air;
-        buildMap[4, 2] =  Contents.ground;
-        buildMap[4, 3] =  Contents.ground;
-        buildMap[4, 4] =  Contents.ground;
-        buildMap[4, 5] =  Contents.ground;
-        buildMap[4, 6] =  Contents.ground;
-        buildMap[4, 7] =  Contents.ground;
-        buildMap[4, 8] =  Contents.ground;
-
-        buildMap[5, 0] =  Contents.ground;
-        buildMap[5, 1] = Contents.air;
-        buildMap[5, 2] = Contents.air;
-        buildMap[5, 3] = Contents.air;
-        buildMap[5, 4] = Contents.air;
-        buildMap[5, 5] = Contents.air;
-        buildMap[5, 6] = Contents.air;
-        buildMap[5, 7] = Contents.air;
-        buildMap[5, 8] =  Contents.ground;
-
-        buildMap[6, 0] =  Contents.ground;
-        buildMap[6, 1] =  Contents.ground;
-        buildMap[6, 2] =  Contents.ground;
-        buildMap[6, 3] =  Contents.ground;
-        buildMap[6, 4] =  Contents.ground;
-        buildMap[6, 5] =  Contents.ground;
-        buildMap[6, 6] =  Contents.ground;
-        buildMap[6, 7] = Contents.air;
-        buildMap[6, 8] =  Contents.ground;
-
-        buildMap[7, 0] = Contents.air;
-        buildMap[7, 1] = Contents.air;
-        buildMap[7, 2] = Contents.air;
-        buildMap[7, 3] = Contents.air;
-        buildMap[7, 4] = Contents.air;
-        buildMap[7, 5] = Contents.air;
-        buildMap[7, 6] = Contents.air;
-        buildMap[7, 7] = Contents.air;
-        buildMap[7, 8] = Contents.air;
-
-        buildMap[8, 0] = Contents.air;
-        buildMap[8, 1] = Contents.air;
-        buildMap[8, 2] = Contents.air;
-        buildMap[8, 3] = Contents.air;
-        buildMap[8, 4] = Contents.air;
-        buildMap[8, 5] = Contents.air;
-        buildMap[8, 6] = Contents.air;
-        buildMap[8, 7] = Contents.air;
-        buildMap[8, 8] = Contents.air;
+        trackStart = new Vector3((float)(xStart - buildMapOffset), UFOHeight, (float)(zStart - buildMapOffset));
     }
 }
