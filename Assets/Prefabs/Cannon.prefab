@@ -1026,7 +1026,7 @@ ParticleSystem:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-      cycleCount: 1
+      cycleCount: 2
       repeatInterval: 0.01
       probability: 1
   SizeModule:
@@ -4985,6 +4985,7 @@ MonoBehaviour:
   track: 0
   key: 0
   towerType: 0
+  range: 2
   flashMat: {fileID: 2100000, guid: b007aeaa407bf0147b050b1cfc7e1302, type: 2}
   flashTime: 0.1
   model: {fileID: 6277900324281778833}
@@ -4998,7 +4999,6 @@ MonoBehaviour:
   - {fileID: 1429857355843812968, guid: d4640d4edd11f80438a1117cd77e1388, type: 3}
   targeting: 0
   damage: 0.1
-  range: 2
 --- !u!1001 &4462403216526483519
 PrefabInstance:
   m_ObjectHideFlags: 0

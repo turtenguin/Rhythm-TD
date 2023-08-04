@@ -81,21 +81,20 @@ MonoBehaviour:
   track: 0
   key: 2
   towerType: 0
-  level: 0
+  range: 3
   flashMat: {fileID: 2100000, guid: 54c981bcefb69aa4a943882d7d854827, type: 2}
   flashTime: 0.1
   model: {fileID: 545151747862615982}
   upgradeText:
-  - +1 RNG
-  - +2 DMG
+  - +1 DMG
   - +2 RNG
+  - +3 DMG
   modelPrefabs:
   - {fileID: 2813021616540401455, guid: 0e9333f6c3887f04092047b573c85159, type: 3}
   - {fileID: 2844586163552572315, guid: 7c9c19713f2b1274fa7f834743f3c759, type: 3}
   - {fileID: 630153331322602454, guid: 95662194746d25443bae6ada6c2c1054, type: 3}
   targeting: 0
   damage: 1
-  range: 2
   lightning: {fileID: 3604257316946086855}
 --- !u!114 &2018349748694040478
 MonoBehaviour:

@@ -26,14 +26,14 @@ public class Shocker : Targeter
         switch (level)
         {
             case 1:
-                range = 3;
-                return 3;
+                damage = 2;
+                return 0;
             case 2:
+                range = 5;
+                return 2;
+            case 3:
                 damage = 3;
                 return 0;
-            case 3:
-                range = 5;
-                return 5;
         }
 
         return 0;
@@ -44,11 +44,11 @@ public class Shocker : Targeter
         switch (level)
         {
             case 0:
-                return 3;
-            case 1:
                 return 0;
-            case 2:
+            case 1:
                 return 5;
+            case 2:
+                return 0;
         }
         return 0;
     }

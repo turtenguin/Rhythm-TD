@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7393498099813944931
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7393498099813944929}
+  - component: {fileID: 7393498099813944928}
+  - component: {fileID: 7393498099813944862}
+  - component: {fileID: 7393498099813944863}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7393498099813944929
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7393498099813944931}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7393498099813944928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7393498099813944931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 210cacbb07c73cc4d9221e50460e8477, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  healthText: {fileID: 0}
+  transitionToShopTime: 1
+  refreshTargetRate: 0.2
+  towerPrefabs:
+  - {fileID: 8292079061598355590, guid: 9d928c6268033da4d9284c66244fe090, type: 3}
+  - {fileID: 7015743380975229995, guid: 0b209b96fecc9a040a1ed5e6cfe315d5, type: 3}
+  - {fileID: 3832138558694087354, guid: 767034b5d07aaf14dbdef9ba99f2eab6, type: 3}
+  - {fileID: 4676292824508709754, guid: b9c15c84a16b5764384dcba21bfab681, type: 3}
+  shadow: {fileID: 0}
+  upgradeMenu: {fileID: 0}
+  enemySpawner: {fileID: 0}
+  trackDirs: 000000000300000000000000020000000000000004000000
+  trackEnds: fffffffffdffffff010000000300000002000000
+  UFOHeight: 0.25
+  buildMapOffset: 0
+--- !u!114 &7393498099813944862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7393498099813944931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2e9f5548c2e3c248a87f7a9b13725dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefabs:
+  - {fileID: 6530716851478743194, guid: 5609aef936e216a40a28dc88b19c6026, type: 3}
+  - {fileID: 6530716851478743194, guid: b45018aa8012e7c49b28b292f0d0fe97, type: 3}
+  - {fileID: 6530716851478743194, guid: a8c72fac9da704647b433e47637f8073, type: 3}
+  - {fileID: 6530716851478743194, guid: cf86c0ae54919d143ba06d6d98f9fe7a, type: 3}
+  - {fileID: 6530716851478743194, guid: 75b6240e6eb170840b95fdeaea7ed19a, type: 3}
+  - {fileID: 6530716851478743194, guid: 1bdeacfe3b12f024ca3d7ea82ee474bb, type: 3}
+  - {fileID: 6530716851478743194, guid: 7320b873e575ff74ea1a4b9b1f3c493b, type: 3}
+  - {fileID: 6530716851478743194, guid: f915ea0029768864593eb2c5dc24d992, type: 3}
+  - {fileID: 6530716851478743194, guid: 30c7e0afe9278b04f866195553a2462e, type: 3}
+  - {fileID: 6530716851478743194, guid: 26b8a063cfd63514483e6e5c28895bba, type: 3}
+  - {fileID: 6530716851478743194, guid: a3455aeab9e69b64d95f953b78e31235, type: 3}
+  - {fileID: 6530716851478743194, guid: abcd3a22cab1b9f4da4e535c4dcc5650, type: 3}
+  sortTime: 0.2
+--- !u!114 &7393498099813944863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7393498099813944931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8575611213664304a8f189a4cf451c50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataFileName: blignal2.txt

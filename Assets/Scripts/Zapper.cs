@@ -5,6 +5,8 @@ using UnityEngine;
 public class Zapper : Targeter
 {
     public DigitalRuby.LightningBolt.LightningBoltScript lightning;
+    public LayerMask enemyMask;
+    public Transform lightningStart;
 
     protected virtual void Update()
     {
@@ -21,9 +23,22 @@ public class Zapper : Targeter
 
         if (target != null)
         {
-            lightning.EndPosition = target.transform.position;
+            Vector3 dir = target.transform.position - transform.position;
+            dir = new Vector3(dir.x, 0, dir.z);
+            dir.Normalize();
+            lightning.EndPosition = new Vector3(dir.x * range, lightningStart.position.y, dir.z * range);
             lightning.Trigger();
-            target.Damage(damage, transform.position);
+
+            RaycastHit[] hits = Physics.RaycastAll(transform.position, dir, enemyMask);
+            
+            foreach(RaycastHit hit in hits)
+            {
+                Enemy hitEnemy = hit.collider.GetComponent<Enemy>();
+                if(hitEnemy != null)
+                {
+                    hitEnemy.Damage(damage, transform.position);
+                }
+            }
         }
     }
 
