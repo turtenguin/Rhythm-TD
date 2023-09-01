@@ -4918,7 +4918,7 @@ MonoBehaviour:
   model: {fileID: 6224165664301994726}
   startSpeed: 1
   StartStrength: 5
-  StartHealth: 50
+  StartHealth: 100
   type: 0
 --- !u!136 &4118302521851975130
 CapsuleCollider:

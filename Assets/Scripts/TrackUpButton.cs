@@ -27,7 +27,7 @@ public class TrackUpButton : UpgradeButton
         track = recordManager.TowerTypeToTrack(towerType);
         trackVersion = recordManager.TrackVersion(track);
 
-        if((trackVersion >= recordManager.numTrackVersions - 1) || (shopManager.numTowersOut[towerType] < shopManager.numTowersPerType))
+        if((trackVersion >= recordManager.numTrackVersions - 1) || (shopManager.numTowersOut[towerType] < trackVersion + 2))
         {
             button.interactable = false;
             return;
@@ -49,7 +49,7 @@ public class TrackUpButton : UpgradeButton
 
     protected override void ActivateButton()
     {
-        if ((shopManager.numTowersOut[towerType] >= shopManager.numTowersPerType) && shopManager.MakePurchase(cost))
+        if ((shopManager.numTowersOut[towerType] >= trackVersion + 2) && shopManager.MakePurchase(cost))
         {
             recordManager.ChangeTrackVersion(track, trackVersion + 1);
         }

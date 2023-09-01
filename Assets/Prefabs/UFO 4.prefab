@@ -4916,7 +4916,7 @@ MonoBehaviour:
   explodeParticles: {fileID: 5144600369628511961}
   explodeSpeed: 5
   model: {fileID: 1172247643378801317}
-  startSpeed: 2
+  startSpeed: 4
   StartStrength: 1
   StartHealth: 1
   type: 0

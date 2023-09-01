@@ -26,10 +26,10 @@ public class Zapper : Targeter
             Vector3 dir = target.transform.position - transform.position;
             dir = new Vector3(dir.x, 0, dir.z);
             dir.Normalize();
-            lightning.EndPosition = new Vector3(dir.x * range, lightningStart.position.y, dir.z * range);
+            lightning.EndPosition = transform.position + new Vector3(dir.x * range, lightningStart.position.y, dir.z * range);
             lightning.Trigger();
 
-            RaycastHit[] hits = Physics.RaycastAll(transform.position, dir, enemyMask);
+            RaycastHit[] hits = Physics.RaycastAll(transform.position, dir, range, enemyMask);
             
             foreach(RaycastHit hit in hits)
             {

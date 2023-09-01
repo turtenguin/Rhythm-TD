@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
 
     //+x, -x, +z, -z
     private int dir;
-    private int trackOn = 0;
+    public int trackOn { get; private set; } = 0;
     public float speed { get; private set; }
     private Vector3 moveVec;
     public int strength { get; private set; }
@@ -52,7 +52,21 @@ public class Enemy : MonoBehaviour
 
         gameManager.enemies.Add(this);
         dir = gameManager.trackDirs[0];
-        moveVec = new Vector3(speed * Time.fixedDeltaTime, 0, 0);
+        switch (dir)
+        {
+            case 0:
+                moveVec = new Vector3(speed * Time.fixedDeltaTime, 0, 0);
+                break;
+            case 1:
+                moveVec = new Vector3(-speed * Time.fixedDeltaTime, 0, 0);
+                break;
+            case 2:
+                moveVec = new Vector3(0, 0, speed * Time.fixedDeltaTime);
+                break;
+            case 3:
+                moveVec = new Vector3(0, 0, -speed * Time.fixedDeltaTime);
+                break;
+        }
         transform.position = gameManager.trackStart;
     }
 
@@ -117,6 +131,8 @@ public class Enemy : MonoBehaviour
 
     public bool IsAheadOf(Enemy enemy)
     {
+        if (enemy.trackOn > trackOn) return false;
+        if (enemy.trackOn < trackOn) return true;
         switch (dir)
         {
             case 0:

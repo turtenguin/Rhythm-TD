@@ -63,11 +63,9 @@ public class EnemySpawner : MonoBehaviour
             newEnemy.ResetEnemy();
         }
 
-        float thisTime = spawn.spawnTime;
-
         if(spawnList.Count > 0)
         {
-            Invoke("Spawn", spawnList.Peek().spawnTime - thisTime);
+            Invoke("Spawn", spawnList.Peek().spawnTime);
         }
     }
 

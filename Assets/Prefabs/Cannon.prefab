@@ -4998,7 +4998,7 @@ MonoBehaviour:
   - {fileID: 5609439240909006301, guid: b7cd80aff2f38124ea2367a58894e497, type: 3}
   - {fileID: 1429857355843812968, guid: d4640d4edd11f80438a1117cd77e1388, type: 3}
   targeting: 0
-  damage: 0.1
+  damage: 0.2
 --- !u!1001 &4462403216526483519
 PrefabInstance:
   m_ObjectHideFlags: 0

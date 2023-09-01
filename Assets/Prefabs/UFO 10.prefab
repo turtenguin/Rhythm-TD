@@ -4916,9 +4916,9 @@ MonoBehaviour:
   explodeParticles: {fileID: 4674677946209454277}
   explodeSpeed: 5
   model: {fileID: 5168787300639390175}
-  startSpeed: 0.1
+  startSpeed: 0.4
   StartStrength: 50
-  StartHealth: 1000
+  StartHealth: 2000
   type: 0
 --- !u!136 &4118302521851975130
 CapsuleCollider:
