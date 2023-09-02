@@ -102,11 +102,16 @@ public class UpgradeButton : MonoBehaviour
     {
         if(coins < cost)
         {
-            animator.SetBool("CantBuy", true);
+            Invoke("SetCantBuy", .25f);
         }
         else
         {
             animator.SetBool("CantBuy", false);
         }
+    }
+
+    private void SetCantBuy()
+    {
+        animator.SetBool("CantBuy", true);
     }
 }

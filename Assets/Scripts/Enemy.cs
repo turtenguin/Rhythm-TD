@@ -196,10 +196,12 @@ public class Enemy : MonoBehaviour
 
         if(type == 10)
         {
-            Invoke("Win Menu", 5);
+            Invoke("Win", 5);
         }
-
-        Invoke("Destroy", 2);
+        else
+        {
+            Invoke("Destroy", 2);
+        }
     }
 
     private void Win()
