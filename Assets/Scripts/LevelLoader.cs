@@ -16,7 +16,7 @@ public class LevelLoader : MonoBehaviour
         recordManager = RecordManager.recordManagerInstance;
         gameManager = GameManager.instance;
         enemySpawner = gameManager.enemySpawner;
-        dataFilePath = Application.dataPath + "/Resources/" + dataFileName;
+        dataFilePath = Application.streamingAssetsPath + "/" + dataFileName;
         LoadLevel();
     }
     

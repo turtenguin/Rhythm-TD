@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour
 {
@@ -193,7 +194,17 @@ public class Enemy : MonoBehaviour
 
         shopManager.CollectBounty(type);
 
+        if(type == 10)
+        {
+            Invoke("Win Menu", 5);
+        }
+
         Invoke("Destroy", 2);
+    }
+
+    private void Win()
+    {
+        SceneManager.LoadScene("Win Menu");
     }
 
     private void Destroy()

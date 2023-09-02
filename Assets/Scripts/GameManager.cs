@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -73,8 +74,14 @@ public class GameManager : MonoBehaviour
         else
         {
             healthText.text = "0";
+            Invoke("Die", 5);
             return true;
         }
+    }
+
+    private void Die()
+    {
+        SceneManager.LoadScene("Death Menu");
     }
 
     public bool canBuildHere(int x, int z)
