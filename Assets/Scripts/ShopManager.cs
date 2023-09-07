@@ -18,8 +18,6 @@ public class ShopManager : MonoBehaviour
     public UpgradeMenu upgradeMenu;
 
     static public ShopManager instance;
-    private RecordManager recordManager;
-    private GameManager gameManager;
 
     [System.Serializable]
     public struct costList
@@ -36,8 +34,6 @@ public class ShopManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        gameManager = GameManager.instance;
-        recordManager = RecordManager.recordManagerInstance;
         numTowersOut = new int[numTowerTypes];
         numUpgrades = upgradeCosts[0].upgradeCosts.Length;
     }
