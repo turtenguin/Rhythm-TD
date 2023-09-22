@@ -315,7 +315,6 @@ public class BeatManager : MonoBehaviour
 
     private void ProcessKey()
     {
-        //TODO CHECK FOR MORE MODS NEEDED
         //If a key is pressed
         if (Input.anyKeyDown)
         {
